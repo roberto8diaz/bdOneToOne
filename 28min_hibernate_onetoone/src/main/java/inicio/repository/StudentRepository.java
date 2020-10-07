@@ -72,4 +72,12 @@ public class StudentRepository {
 		
 	}
 	
+	public void someDummyOperation() {
+		Student student = em.find(Student.class,2003L);
+		Passport passport = student.getPassport();
+		
+		passport.setName("E22222");
+		student.setName("dummy - updated");
+	}
+	
 }
