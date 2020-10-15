@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import inicio.entity.Course;
 import inicio.entity.Passport;
 import inicio.entity.Student;
 
@@ -78,6 +79,37 @@ public class StudentRepository {
 		
 		passport.setName("E22222");
 		student.setName("dummy - updated");
+	}
+	
+	public void insertStudentAndCourse() {
+		
+		Student student = new Student("chucho");
+		Course course = new Course("Madera avanzada");
+		em.persist(student);
+		em.persist(course);
+		
+		student.addCourse(course);
+		course.addStudent(student);
+		
+		em.persist(student);
+		
+		
+	}
+	
+public void insertStudentAndCourse(Student student,Course course) {
+		
+//		Student student = new Student("chucho");
+//		Course course = new Course("Madera avanzada");
+//		em.persist(student);
+//		em.persist(course);
+		
+		student.addCourse(course);
+		course.addStudent(student);
+		
+		em.persist(student);
+		em.persist(course);
+		
+		
 	}
 	
 }

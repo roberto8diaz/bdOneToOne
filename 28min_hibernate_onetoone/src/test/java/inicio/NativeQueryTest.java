@@ -30,7 +30,7 @@ class NativeQueryTest {
 	
 	@Test
 	public void native_queries_basic() {
-		Query query = em.createNativeQuery("SELECT * FROM COURSE",Course.class);
+		Query query = em.createNativeQuery("SELECT * FROM COURSE where is_deleted = 0 ",Course.class);
 		List resultlist = query.getResultList();
 		logger.info("SELECT * FROM COURSE -> {}",resultlist);
 	}

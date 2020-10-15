@@ -1,5 +1,7 @@
 package inicio.repository;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 
 import org.slf4j.Logger;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import inicio.entity.Course;
+import inicio.entity.Review;
+import inicio.entity.ReviewRating;
 
 @Repository
 @Transactional
@@ -59,6 +63,33 @@ public class CourseRepository {
 		
 		Course course2 = findById(1001L);
 		course2.setName("cambio registro 1002");
+	}
+
+	public void addReviewsForCourse() {
+		Course course = findById(1001L);
+		logger.info("course.getRewviews -> {}",course.getReviews());
+		Review review1 = new Review(ReviewRating.FIVE,"Great");
+		Review review2 = new Review(ReviewRating.FIVE,"Really good");
+		
+		course.addReviews(review1);
+		review1.setCourse(course);
+		course.addReviews(review2);
+		review2.setCourse(course);
+		
+		em.persist(review1);
+		em.persist(review2);
+		
+	}
+	
+	public void addReviewsForCourse(Long courseId,List<Review> reviews) {
+		Course course = findById(courseId);
+		logger.info("course.getRewviews -> {}",course.getReviews());
+		
+		for(Review review:reviews) {
+		course.addReviews(review);
+		review.setCourse(course);
+		em.persist(review);
+		}
 	}
 	
 }
